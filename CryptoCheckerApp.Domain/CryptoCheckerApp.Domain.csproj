@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>CryptoCheckerApp.Domain</AssemblyName>
+    <RootNamespace>CryptoCheckerApp.Domain</RootNamespace>
+    <Authors>Benjamin Soro</Authors>
+  </PropertyGroup>
+
+</Project>
