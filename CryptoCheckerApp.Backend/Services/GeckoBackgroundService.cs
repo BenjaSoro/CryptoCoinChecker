@@ -15,6 +15,8 @@
 
     using Microsoft.Extensions.Options;
 
+    using Serilog;
+
     public class GeckoBackgroundService : IBackgroundService
     {
         private readonly GeckoApiDefinitionSettings geckoApiDefinitionSettings;
@@ -81,13 +83,19 @@
 
                 foreach (var coinMarket in marketDataResult)
                 {
-                    var l = new UpdateCoinSignalMsg
+                    var coinSignalMsg = new UpdateCoinSignalMsg
                                 {
                                     Symbol = coinMarket.Symbol,
                                     CurrentPrice = coinMarket.CurrentPrice,
                                     PriceChangePercentage24 = coinMarket.PriceChangePercentage24H
                                 };
-                    this.newMarketPrices.Add(l);
+                    this.newMarketPrices.Add(coinSignalMsg);
+
+                    Log.Information("The following result will be processed: "
+                                    + $"{nameof(coinMarket.Name)}: {coinMarket.Name}, "
+                                    + $"{nameof(coinMarket.Symbol)}: {coinMarket.Symbol}, "
+                                    + $"{nameof(coinMarket.CurrentPrice)}: {coinMarket.CurrentPrice}, "
+                                    + $"{nameof(coinMarket.PriceChangePercentage24H)}: {coinMarket.PriceChangePercentage24H}");
                 }
             }
             catch (Exception e)

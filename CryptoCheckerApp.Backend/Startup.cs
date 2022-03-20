@@ -14,6 +14,8 @@ namespace CryptoCheckerApp.Backend
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
 
+    using Serilog;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -56,6 +58,7 @@ namespace CryptoCheckerApp.Backend
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSerilogRequestLogging();
 
             app.UseEndpoints(endpoints =>
             {

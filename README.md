@@ -65,6 +65,15 @@ As a result, there is a list of `CoinMarketsDefinition` which is being mapped to
 
 The whole process of getting updated prices from the API is set under an infinite loop, with a configurable Delay in order to not overload the network and avoid reaching the maximum call/minutes for the API free plan.
 
+### Logging
+It is always required some kind of logging, even if this is a demo project, to track and debug possible issues and bugs since this application will likely run on the background or as a service.
+
+Even though there are different logging libraries for .Net, [Serilog](https://github.com/serilog/serilog) which provides diagnostic logging to files, the console, and many other outputs will be configured and implemented.
+#### Configuration
+*Please refer to the [Getting Started](https://github.com/serilog/serilog/wiki/Getting-Started) page to know more about initial configuration and extra features.*
+
+This application has been configured using the [Two-stage initialization](https://github.com/serilog/serilog-aspnetcore#two-stage-initialization) in order to identify possible issues during the bootup process and afterwards reading the configuration settings from the `appsettings.json` in order to write to the Console and File the logging entries.
+
 ### Launching project
 For the purpose of this demo project, it has been set to be executed like console application, however it can be executed from IIS Express as well.
 The assigned ports for both options are defined in `appsettings.json`and `launchSettings.json` respectively. 
