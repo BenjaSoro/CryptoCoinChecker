@@ -1,6 +1,6 @@
 ﻿namespace CryptoCheckerApp.Domain.Models
 {
-    public class UpdateCoinSignalMsg
+    public class UpdatedCoinSignalMsg
     {
         public string Symbol { get; set; }
 

@@ -6,6 +6,6 @@
 
     public interface ISignalr
     {
-        Task SendMessage(UpdateCoinSignalMsg message);
+        Task SendMessage(UpdatedCoinSignalMsg message);
     }
 }

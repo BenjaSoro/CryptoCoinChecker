@@ -22,7 +22,7 @@
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Task SendMessage(UpdateCoinSignalMsg message)
+        public Task SendMessage(UpdatedCoinSignalMsg message)
         {
             return this.context.Clients.All.SendAsync("ReceiveMessage", message);
         }

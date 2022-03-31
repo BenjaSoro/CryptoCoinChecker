@@ -27,7 +27,6 @@ namespace CryptoCheckerApp.Backend
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSignalR();
             services.Configure<GeckoApiDefinitionSettings>(this.Configuration.GetSection("GeckoApiDefinitionSettings"));
@@ -36,6 +35,7 @@ namespace CryptoCheckerApp.Backend
             services.AddSingleton<ICoinService, CoinService>();
             services.AddSingleton<IBaseApiClient, BaseApiClient>();
             services.AddSingleton<IBackgroundService, GeckoBackgroundService>();
+            services.AddSingleton<IGeckoService, GeckoService>();
             services.AddSingleton<MarketCheckerService>();
             services.AddSingleton<IMarketCheckerService>(x => x.GetRequiredService<MarketCheckerService>());
             services.AddSingleton<IHostedService>(x => x.GetRequiredService<MarketCheckerService>());
