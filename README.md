@@ -4,7 +4,7 @@ It is a demonstrative project which tries to build an application related to cry
 
 The main objective to achieve is being able to display, on the client side, the list of supported **currencies with real-time price update**.
 
-In order to build the *backend* side of the application, **.Net Core** framework will be used, which already provides with different features to achieve the purpose of this project.
+In order to build the *backend* side of the application, **.NET Core** framework will be used, which already provides with different features to achieve the purpose of this project.
 
 For the client side, it has not been decided yet how will be implemented, but it might be mobile related. *(since I'd like to refresh my knowledge about it)* 🙂
 
@@ -15,7 +15,7 @@ The backend side will be responsible to inform the client about the supported cu
 ### Backend API
 An API is provided to the client in order to ask for the available currencies, which for the purpose of this demo, there will be hard-coded in a list.
 
-Even though, it is expected to have one controller with few routes in this project, [Swagger](https://swagger.io/) will be used for tooling and building the backend API through the [nuget](https://www.nuget.org/packages/swashbuckle.aspnetcore/) *Swashbuckle.AspNetCore* for .Net Core. 
+Even though, it is expected to have one controller with few routes in this project, [Swagger](https://swagger.io/) will be used for tooling and building the backend API through the [nuget](https://www.nuget.org/packages/swashbuckle.aspnetcore/) *Swashbuckle.AspNetCore* for .NET Core. 
 Providing the OpenAPI specification standard, which is always a good practice, and Swagger UI to explore and perform tests on controllers and routes.
 
 ### SignalR
@@ -68,11 +68,17 @@ The whole process of getting updated prices from the API is set under an infinit
 ### Logging
 It is always required some kind of logging, even if this is a demo project, to track and debug possible issues and bugs since this application will likely run on the background or as a service.
 
-Even though there are different logging libraries for .Net, [Serilog](https://github.com/serilog/serilog) which provides diagnostic logging to files, the console, and many other outputs will be configured and implemented.
+Even though there are different logging libraries for .NET, [Serilog](https://github.com/serilog/serilog) which provides diagnostic logging to files, the console, and many other outputs will be configured and implemented.
 #### Configuration
 *Please refer to the [Getting Started](https://github.com/serilog/serilog/wiki/Getting-Started) page to know more about initial configuration and extra features.*
 
 This application has been configured using the [Two-stage initialization](https://github.com/serilog/serilog-aspnetcore#two-stage-initialization) in order to identify possible issues during the bootup process and afterwards reading the configuration settings from the `appsettings.json` in order to write to the Console and File the logging entries.
+
+### Unit Testing
+Adding Unit Testing to each project being developed it is always part of best practices. Allowing testing isolated methods and components integration.
+There are different testing frameworks for .NET out there, but for this project, [NUnit](https://nunit.org/) framework will be used.
+#### NSubstitute
+For Mocking libraries there are several options as well, but in order to try out something different, [NSubstitute](https://github.com/nsubstitute/NSubstitute) library will be used in order to create a substitute instance for specified type.
 
 ### Launching project
 For the purpose of this demo project, it has been set to be executed like console application, however it can be executed from IIS Express as well.
