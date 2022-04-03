@@ -7,7 +7,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using AutoMapper;
+
     using CryptoCheckerApp.Backend.GeckoApiDefinition.EndPoints;
+    using CryptoCheckerApp.Backend.GeckoApiDefinition.Entities;
     using CryptoCheckerApp.Backend.Hubs;
     using CryptoCheckerApp.Domain.Models;
 
@@ -23,6 +26,8 @@
 
         private readonly IGeckoService geckoService;
 
+        private readonly IMapper mapper;
+
         private readonly ISignalr signalr;
 
         private readonly BlockingCollection<UpdatedCoinSignalMsg> newMarketPrices = new();
@@ -30,6 +35,7 @@
             IOptions<GeckoApiDefinitionSettings> geckoApiDefinitionSettings,
             ICoinService coinService,
             IGeckoService geckoService,
+            IMapper mapper,
             ISignalr signalr)
         {
             if (geckoApiDefinitionSettings == null)
@@ -40,6 +46,7 @@
             this.geckoApiDefinitionSettings = geckoApiDefinitionSettings.Value;
             this.coinService = coinService ?? throw new ArgumentNullException(nameof(coinService));
             this.geckoService = geckoService ?? throw new ArgumentNullException(nameof(geckoService));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             this.signalr = signalr ?? throw new ArgumentNullException(nameof(signalr));
         }
 
@@ -63,14 +70,16 @@
         private async Task UpdateMarketPrices(string coinMarketsUri, IEnumerable<string> coinIdList, CancellationToken cancellationToken)
         {
             var coinMarketsDefinitions = await this.geckoService.GetMarketPricesFor(coinMarketsUri, coinIdList);
-            var updatedCoinSignals = UtilService.MapFrom(coinMarketsDefinitions);
+            var updatedCoinSignals =
+                coinMarketsDefinitions?.Select(coinDef => this.mapper.Map<UpdatedCoinSignalMsg>(coinDef))
+                ?? new List<UpdatedCoinSignalMsg>();
             foreach (var msg in updatedCoinSignals)
             {
                 this.newMarketPrices.Add(msg, cancellationToken);
-                Log.Information("The following result will be processed: "
+                Log.Information("The following result will be processed:\n "
                                 + $"{nameof(msg.Symbol)}: {msg.Symbol}, "
                                 + $"{nameof(msg.CurrentPrice)}: {msg.CurrentPrice}, "
-                                + $"{nameof(msg.PriceChangePercentage24)}: {msg.PriceChangePercentage24}");
+                                + $"{nameof(msg.PriceChangePercentage24H)}: {msg.PriceChangePercentage24H}%");
             }
         }
 

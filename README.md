@@ -31,6 +31,15 @@ Here is when SignalR, using the nuget *Microsoft.AspNetCore.SignalR.Core*, comes
 Regardless the *IMarketCheckerService* interface implementation, to inform the Client about updates, it should be done from the Hub implementation calling the method `Clients.All.SendAsync("ReceiveMessage", message);`
 where *"ReceiveMessage"* is the listener method which should be implemented on the Client side to process the message sent.
 
+### Mapping
+For the purpose of this project, the usage of mapping libraries will not differ much from traditional objects mapping, but it is always part of best practices to use a mapping library in more complex environments where mapping between objects might be a chaotic task.
+
+The well-known library [AutoMapper](https://docs.automapper.org/en/stable/Getting-started.html) will be configured and set up on this project.
+
+#### Configuration
+An additional [Nuget package](https://www.nuget.org/packages/AutoMapper.Extensions.Microsoft.DependencyInjection/) for .NET Core Dependency Injection is required, and the configuration will be set using [profiles](https://docs.automapper.org/en/stable/Configuration.html#profile-instances).  
+*Please refer to documentation page to know more about mapping configuration.*
+
 ### CoinGecko API
 [Gecko API](https://www.coingecko.com/en/api) has been selected to get real-time prices for currencies from a crypto data aggregator.
 The current free plan fits and covers the goals for this demo project.
@@ -66,9 +75,9 @@ As a result, there is a list of `CoinMarketsDefinition` which is being mapped to
 The whole process of getting updated prices from the API is set under an infinite loop, with a configurable Delay in order to not overload the network and avoid reaching the maximum call/minutes for the API free plan.
 
 ### Logging
-It is always required some kind of logging, even if this is a demo project, to track and debug possible issues and bugs since this application will likely run on the background or as a service.
+As part of best practices, it is highly recommended to some logging library, even for this demo project, to track and debug possible issues and bugs. Especially since this application will likely run on the background or as a service.
 
-Even though there are different logging libraries for .NET, [Serilog](https://github.com/serilog/serilog) which provides diagnostic logging to files, the console, and many other outputs will be configured and implemented.
+There are different logging libraries for .NET, but [Serilog](https://github.com/serilog/serilog) which provides diagnostic logging to files, the console, and many other outputs will be configured and implemented.
 #### Configuration
 *Please refer to the [Getting Started](https://github.com/serilog/serilog/wiki/Getting-Started) page to know more about initial configuration and extra features.*
 

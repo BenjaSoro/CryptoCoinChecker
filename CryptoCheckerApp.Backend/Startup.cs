@@ -1,10 +1,12 @@
 namespace CryptoCheckerApp.Backend
 {
+    using System;
     using System.Net.Http;
 
     using CryptoCheckerApp.Backend.Clients;
     using CryptoCheckerApp.Backend.GeckoApiDefinition.EndPoints;
     using CryptoCheckerApp.Backend.Hubs;
+    using CryptoCheckerApp.Backend.Mapping;
     using CryptoCheckerApp.Backend.Services;
 
     using Microsoft.AspNetCore.Builder;
@@ -29,6 +31,12 @@ namespace CryptoCheckerApp.Backend
         {
             services.AddControllers();
             services.AddSignalR();
+            services.AddAutoMapper(
+                config =>
+                    {
+                        config.AddProfile(new BackendToDomainMappingProfile());
+                    },
+                AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<GeckoApiDefinitionSettings>(this.Configuration.GetSection("GeckoApiDefinitionSettings"));
             services.AddSingleton<HttpClient>();
             services.AddSingleton<ISignalr, CheckerHub>();

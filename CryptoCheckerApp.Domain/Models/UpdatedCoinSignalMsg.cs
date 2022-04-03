@@ -6,6 +6,6 @@
 
         public decimal? CurrentPrice { get; set; }
 
-        public double? PriceChangePercentage24 { get; set; }
+        public double? PriceChangePercentage24H { get; set; }
     }
 }
