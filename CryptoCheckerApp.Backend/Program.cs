@@ -11,9 +11,10 @@ namespace CryptoCheckerApp.Backend
     {
         public static int Main(string[] args)
         {
+            var logStartupPath = Environment.ExpandEnvironmentVariables("%ProgramData%\\logs\\log-startup.txt");
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
-                .WriteTo.File(@".\\log-startup.txt")
+                .WriteTo.File(logStartupPath)
                 .WriteTo.Console()
                 .CreateBootstrapLogger();
 
@@ -37,6 +38,7 @@ namespace CryptoCheckerApp.Backend
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration))
+                .UseWindowsService()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

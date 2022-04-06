@@ -93,4 +93,8 @@ For Mocking libraries there are several options as well, but in order to try out
 For the purpose of this demo project, it has been set to be executed like console application, however it can be executed from IIS Express as well.
 The assigned ports for both options are defined in `appsettings.json`and `launchSettings.json` respectively. 
 
+### Installing as a Service
+One option to consider about this project is the possibility of running as Windows service, although it might be better idea to be [hosted under Internet Information Services (IIS)](https://www.endpointdev.com/blog/2021/09/deploying-dotnet-5-app-iis/) in order to expose the API to clients.  
+*Please refer to [Microsoft DevBlogs](https://devblogs.microsoft.com/ifdef-windows/creating-a-windows-service-with-c-net5/#asp-net-similarities) to know more about the configuration, set up and publishing as Windows Service.*
+
 *- Benjamin Soro*

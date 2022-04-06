@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoCheckerApp.Backend", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoCheckerApp.Domain", "CryptoCheckerApp.Domain\CryptoCheckerApp.Domain.csproj", "{BE780984-BFAC-432B-94DA-9205C22209EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoCheckerApp.Backend.Test", "CryptoCheckerApp.Backend.Test\CryptoCheckerApp.Backend.Test.csproj", "{A0CEA68C-EBFF-45A1-81A8-6D5B1FBF48C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoCheckerApp.Backend.Test", "CryptoCheckerApp.Backend.Test\CryptoCheckerApp.Backend.Test.csproj", "{A0CEA68C-EBFF-45A1-81A8-6D5B1FBF48C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{645FC78C-26E9-4936-8BB9-D671CBAF1F0D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
