@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:CryptoChecker.ViewModels;assembly=CryptoChecker"
+             xmlns:converters="clr-namespace:CryptoChecker.Converters;assembly=CryptoChecker"
+             x:Class="CryptoChecker.Views.AboutPage"
+             Title="{Binding Title}"
+             Visual="Material"
+             >
+    
+    <ContentPage.BindingContext>
+        <viewModels:AboutViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <converters:EmbeddedToImageSourceConverter x:Key="ToImageSource"/>
+    </ContentPage.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,20,0,20" VerticalOptions="FillAndExpand">
+                    <Image Source="{Binding Path=Logo, Converter={StaticResource ToImageSource}, ConverterParameter='CryptoChecker.Resources.Images'}"
+                           VerticalOptions="Center" HeightRequest="64" WidthRequest="64" />
+                </ContentView>
+                <Label Text="Crypto Checker" VerticalOptions="Center" FontAttributes="Bold" FontSize="Title"/>
+            </StackLayout>
+        </StackLayout>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="20,20,20,20" Spacing="10" BackgroundColor="WhiteSmoke">
+                
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Author: "/>
+                                <Span Text="Benjamin Soro" FontAttributes="Bold"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="License: "/>
+                                <Span Text="Apache License 2.0" FontAttributes="Bold"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Version: "/>
+                                <Span Text="{Binding CurrentVersion}" FontAttributes="Bold"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Text="Repository:"/>
+                <StackLayout Margin="0,-10,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding ProjectRepository}" FontAttributes="Italic,Bold" Grid.Column="0" VerticalOptions="Center"/>
+                        <ImageButton Grid.Column="1" Source="{FontImage FontFamily='Material', Glyph='&#xe89e;', Color={StaticResource Primary}, Size='22'}" BackgroundColor="Transparent"
+                                     HorizontalOptions="Start" VerticalOptions="Center" Command="{Binding OpenWebCommand}" CommandParameter="0"></ImageButton>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="Data provided by "/>
+                                        <Span Text="CoinGecko API" FontAttributes="Bold"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <ImageButton Grid.Column="1" Source="{FontImage FontFamily='Material', Glyph='&#xe89e;', Color={StaticResource Primary}, Size='22'}" BackgroundColor="Transparent"
+                                     HorizontalOptions="Start" VerticalOptions="Center" Command="{Binding OpenWebCommand}" CommandParameter="1"></ImageButton>
+                    </Grid>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

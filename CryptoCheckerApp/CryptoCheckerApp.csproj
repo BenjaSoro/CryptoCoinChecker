@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <RootNamespace>CryptoChecker</RootNamespace>
+    <AssemblyName>CryptoChecker</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
+    <None Remove="Resources\Images\app-logo.png" />
+    <None Remove="Resources\Logos\aave.png" />
+    <None Remove="Resources\Logos\algorand.png" />
+    <None Remove="Resources\Logos\bitcoin.png" />
+    <None Remove="Resources\Logos\cardano.png" />
+    <None Remove="Resources\Logos\chainlink.png" />
+    <None Remove="Resources\Logos\dogecoin.png" />
+    <None Remove="Resources\Logos\ethereum-classic.png" />
+    <None Remove="Resources\Logos\ethereum.png" />
+    <None Remove="Resources\Logos\litecoin.png" />
+    <None Remove="Resources\Logos\shiba-inu.png" />
+    <None Remove="Resources\Logos\solana.png" />
+    <None Remove="Resources\Logos\tezos.png" />
+    <None Remove="Resources\Logos\uniswap.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\MaterialIcons-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Images\app-logo.png" />
+    <EmbeddedResource Include="Resources\Logos\aave.png" />
+    <EmbeddedResource Include="Resources\Logos\algorand.png" />
+    <EmbeddedResource Include="Resources\Logos\bitcoin.png" />
+    <EmbeddedResource Include="Resources\Logos\cardano.png" />
+    <EmbeddedResource Include="Resources\Logos\chainlink.png" />
+    <EmbeddedResource Include="Resources\Logos\dogecoin.png" />
+    <EmbeddedResource Include="Resources\Logos\ethereum-classic.png" />
+    <EmbeddedResource Include="Resources\Logos\ethereum.png" />
+    <EmbeddedResource Include="Resources\Logos\litecoin.png" />
+    <EmbeddedResource Include="Resources\Logos\shiba-inu.png" />
+    <EmbeddedResource Include="Resources\Logos\solana.png" />
+    <EmbeddedResource Include="Resources\Logos\tezos.png" />
+    <EmbeddedResource Include="Resources\Logos\uniswap.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CryptoCheckerApp.Domain\CryptoCheckerApp.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CryptoCheckerApp.xaml.cs">
+      <DependentUpon>CryptoCheckerApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MarketsPage.xaml.cs">
+      <DependentUpon>MarketsPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\MarketsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Views\SearchPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+</Project>

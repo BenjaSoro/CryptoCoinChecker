@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewModels="clr-namespace:CryptoChecker.ViewModels;assembly=CryptoChecker"
+			 xmlns:models="clr-namespace:CryptoChecker.Models;assembly=CryptoChecker"
+			 xmlns:converters="clr-namespace:CryptoChecker.Converters;assembly=CryptoChecker"
+			 Visual="Material"
+			 Title="{Binding Title}"
+			 x:Class="CryptoChecker.Views.MarketsPage">
+
+	<ContentPage.BindingContext>
+		<viewModels:MarketsViewModel/>
+	</ContentPage.BindingContext>
+	<ContentPage.Resources>
+		<converters:EmbeddedToImageSourceConverter x:Key="ToImageSource"/>
+	</ContentPage.Resources>
+
+	<ContentPage.Content>
+		<StackLayout>
+			<SearchBar IsEnabled="{Binding LoadingMessageLabel.IsDone}"
+					   x:Name="SearchBar"
+					   Placeholder="Enter crypto name 'bitcoin'"
+					   TextChanged="SearchBar_OnTextChanged"/>
+			<Label IsVisible="{Binding SearchResultLabel.IsShowing}"
+				   Text="{Binding SearchResultLabel.Text}"
+				   VerticalOptions="Start"
+				   FontAttributes="Italic"
+				   HorizontalOptions="CenterAndExpand"/>
+			<Label IsVisible="{Binding LoadingMessageLabel.IsShowing}"
+				   Text="{Binding LoadingMessageLabel.Text}"
+				   VerticalOptions="Start"
+				   FontAttributes="Italic"
+				   HorizontalOptions="CenterAndExpand"/>
+			<Label IsVisible="{Binding SignalRConnectionLabel.IsShowing}"
+				   Text="{Binding SignalRConnectionLabel.Text}"
+				   VerticalOptions="Start"
+				   FontAttributes="Italic"
+				   HorizontalOptions="CenterAndExpand"/>
+			<StackLayout IsVisible="{Binding IsThereAnError}"
+						 HorizontalOptions="FillAndExpand"
+						 VerticalOptions="EndAndExpand">
+				<StackLayout Padding="10"
+							 BackgroundColor="Red"
+							 HorizontalOptions="FillAndExpand">
+					<Label Padding="0, 0, 10, 0"
+						   Text="An error has occurred, please refresh."
+						   FontAttributes="Bold"
+						   HorizontalTextAlignment="Center"/>
+					<Button Text="Refresh"
+							WidthRequest="120"
+							HeightRequest="40"
+							HorizontalOptions="Center"
+							Command="{Binding RefreshCoins}"/>
+				</StackLayout>
+			</StackLayout>
+			<StackLayout IsVisible="{Binding LoadingMessageLabel.IsDone }">
+				<CollectionView x:Name="ItemsListView"
+								ItemsSource="{Binding CoinItems}"
+								ItemsLayout="VerticalList"
+								SelectionMode="None">
+					<CollectionView.ItemTemplate>
+						<DataTemplate>
+							<Grid Padding="0, 5, 0, 5"
+								  x:DataType="models:CoinItem">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<StackLayout BackgroundColor="WhiteSmoke">
+									<Grid ColumnSpacing="0"
+										  RowSpacing="0">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto"/>
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="55"/>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="75"/>
+										</Grid.ColumnDefinitions>
+										<StackLayout Padding="5">
+											<Grid ColumnSpacing="0"
+												  RowSpacing="0">
+												<BoxView BackgroundColor="White"
+														 CornerRadius="10"
+														 WidthRequest="45"
+														 HeightRequest="45"/>
+												<StackLayout Grid.Column="0"
+															 VerticalOptions="Center">
+													<Image WidthRequest="35"
+														   HeightRequest="35"
+														   Source="{Binding LogoPath, Converter={StaticResource ToImageSource}, ConverterParameter='CryptoChecker.Resources.Logos'}"/>
+												</StackLayout>
+											</Grid>
+										</StackLayout>
+										<StackLayout Grid.Column="1"
+													 Padding="5">
+											<Label Text="{Binding Coin.Symbol, StringFormat='{0}/EUR'}"
+												   FontAttributes="Bold"
+												   FontSize="16"/>
+											<Label Text="{Binding Coin.Name}"
+												   FontSize="14"
+												   Padding="0"/>
+										</StackLayout>
+										<StackLayout Grid.Column="2"
+													 VerticalOptions="Center"
+													 HorizontalOptions="End"
+													 Padding="0, 0, 5, 0">
+											<Label Text="{Binding CurrentPrice, StringFormat='{0:#,0.00######}'}"
+												   FontAttributes="Bold"
+												   FontSize="23"
+												   Padding="0"/>
+										</StackLayout>
+										<StackLayout Grid.Column="3">
+											<Grid ColumnSpacing="0"
+												  RowSpacing="0">
+												<StackLayout Padding="7, 7">
+													<BoxView Color="{Binding PercentBgColor}"
+														 CornerRadius="10"
+														 WidthRequest="40"
+														 HeightRequest="40"/>
+												</StackLayout>
+												<StackLayout Grid.Column="0"
+														 VerticalOptions="Center"
+														 HorizontalOptions="Center">
+													<Label Text="{Binding ChangedIn24Hours, StringFormat='{0:F2}%'}"
+													   FontSize="15"
+													   FontAttributes="Bold"
+													   Padding="0"/>
+												</StackLayout>
+											</Grid>
+										</StackLayout>
+									</Grid>
+								</StackLayout>
+							</Grid>
+						</DataTemplate>
+					</CollectionView.ItemTemplate>
+				</CollectionView>
+			</StackLayout>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>
