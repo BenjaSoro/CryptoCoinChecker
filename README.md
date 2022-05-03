@@ -6,7 +6,25 @@ The main objective to achieve is being able to display, on the client side, the 
 
 In order to build the *backend* side of the application, **.NET Core** framework will be used, which already provides with different features to achieve the purpose of this project.
 
-For the client side, it has not been decided yet how will be implemented, but it might be mobile related. *(since I'd like to refresh my knowledge about it)* 🙂
+For the client side, it has *not been decided** yet how will be implemented, but it might be mobile related. *(since I'd like to refresh my knowledge about it)* 🙂  
+**Update*: It has been decided to use [Xamarin Forms](https://docs.microsoft.com/en-us/xamarin/get-started/what-is-xamarin) in order to implement a cross platform application compatible with mobile devices.
+
+---
+## Frontend side
+Using the Xamarin Forms platform, allows to create UI and write business logic in C# that is shared across platforms in order to process and display the supported coins provided by the backend.
+
+### Xamarin App
+The application is structured in two pages:
+- **Markets**: a searchable interactive list of available coins with updated prices provided by backend.
+- **About**: with information about the project and author.
+
+#### Using Material Font
+In order to use custom fonts, they need to be specified in the Xamarin *AssemblyInfo.cs* file with the following code:  
+`[assembly: ExportFont("MaterialIcons-Regular.ttf", Alias = "Material")]`
+And include in every .xaml page `Visual="Material"` reference to *ContentPage* header.  
+On the Android and iOS project the nuget *Xamarin.Forms.Visual.Material* needs to be installed.  
+In addition for Android the following code `global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);` needs to be added in *MainActivity.cs*
+ and for iOS the following code `global::Xamarin.Forms.FormsMaterial.Init();` to *AppDelegate.cs*.
 
 ---
 ## Backend side
