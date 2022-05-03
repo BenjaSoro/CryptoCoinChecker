@@ -4,7 +4,7 @@ namespace CryptoCheckerApp.Backend
     using System.Net.Http;
 
     using CryptoCheckerApp.Backend.Clients;
-    using CryptoCheckerApp.Backend.GeckoApiDefinition.EndPoints;
+    using CryptoCheckerApp.Backend.GeckoApiDefinition.Settings;
     using CryptoCheckerApp.Backend.Hubs;
     using CryptoCheckerApp.Backend.Mapping;
     using CryptoCheckerApp.Backend.Services;

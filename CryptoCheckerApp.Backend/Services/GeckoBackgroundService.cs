@@ -9,8 +9,7 @@
 
     using AutoMapper;
 
-    using CryptoCheckerApp.Backend.GeckoApiDefinition.EndPoints;
-    using CryptoCheckerApp.Backend.GeckoApiDefinition.Entities;
+    using CryptoCheckerApp.Backend.GeckoApiDefinition.Settings;
     using CryptoCheckerApp.Backend.Hubs;
     using CryptoCheckerApp.Domain.Models;
 
@@ -18,19 +17,57 @@
 
     using Serilog;
 
+    /// <inheritdoc />
     public class GeckoBackgroundService : IBackgroundService
     {
+        /// <summary>
+        /// CoinGecko API settings.
+        /// </summary>
         private readonly GeckoApiDefinitionSettings geckoApiDefinitionSettings;
 
+        /// <summary>
+        /// The injected coin service.
+        /// </summary>
         private readonly ICoinService coinService;
 
+        /// <summary>
+        /// The injected gecko service.
+        /// </summary>
         private readonly IGeckoService geckoService;
 
+        /// <summary>
+        /// The AutoMapper injected instance.
+        /// </summary>
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// The SignalR injected instance.
+        /// </summary>
         private readonly ISignalr signalr;
 
+        /// <summary>
+        /// Collection to be updated with new prices.
+        /// </summary>
         private readonly BlockingCollection<UpdatedCoinSignalMsg> newMarketPrices = new();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GeckoBackgroundService"/> class.
+        /// </summary>
+        /// <param name="geckoApiDefinitionSettings">
+        /// CoinGecko API settings.
+        /// </param>
+        /// <param name="coinService">
+        /// The injected coin service.
+        /// </param>
+        /// <param name="geckoService">
+        /// The injected gecko service.
+        /// </param>
+        /// <param name="mapper">
+        /// The AutoMapper injected instance.
+        /// </param>
+        /// <param name="signalr">
+        /// The SignalR injected instance.
+        /// </param>
         public GeckoBackgroundService(
             IOptions<GeckoApiDefinitionSettings> geckoApiDefinitionSettings,
             ICoinService coinService,
@@ -50,6 +87,7 @@
             this.signalr = signalr ?? throw new ArgumentNullException(nameof(signalr));
         }
 
+        /// <inheritdoc />
         public async Task DoWorkAsync(CancellationToken cancellationToken)
         {
             _ = Task.Run(() => this.ProcessSignalsQueue(cancellationToken), cancellationToken);
@@ -67,6 +105,21 @@
             }
         }
 
+        /// <summary>
+        /// Method responsible to queue new updated prices received from the CoinGecko API.
+        /// </summary>
+        /// <param name="coinMarketsUri">
+        /// The coin markets uri.
+        /// </param>
+        /// <param name="coinIdList">
+        /// The list with CoinIds.
+        /// </param>
+        /// <param name="cancellationToken">
+        /// The cancellation token.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         private async Task UpdateMarketPrices(string coinMarketsUri, IEnumerable<string> coinIdList, CancellationToken cancellationToken)
         {
             var coinMarketsDefinitions = await this.geckoService.GetMarketPricesFor(coinMarketsUri, coinIdList);
@@ -83,6 +136,15 @@
             }
         }
 
+        /// <summary>
+        /// Method to consume the list of New Prices to inform the Clients via SignalR.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// The cancellation token.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         private async Task ProcessSignalsQueue(CancellationToken cancellationToken)
         {
             foreach (var newPriceSignalMsg in this.newMarketPrices.GetConsumingEnumerable(cancellationToken))

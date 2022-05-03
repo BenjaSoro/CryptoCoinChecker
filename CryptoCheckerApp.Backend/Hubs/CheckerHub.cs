@@ -7,8 +7,14 @@
 
     using Microsoft.AspNetCore.SignalR;
 
+    /// <summary>
+    /// Class which represents the SignalR Hub definition.
+    /// </summary>
     public class CheckerHub : Hub, ISignalr
     {
+        /// <summary>
+        /// The Hub Context.
+        /// </summary>
         private readonly IHubContext<CheckerHub> context;
 
         /// <summary>
@@ -22,6 +28,7 @@
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        /// <inheritdoc />
         public Task SendMessage(UpdatedCoinSignalMsg message)
         {
             return this.context.Clients.All.SendAsync("ReceiveMessage", message);

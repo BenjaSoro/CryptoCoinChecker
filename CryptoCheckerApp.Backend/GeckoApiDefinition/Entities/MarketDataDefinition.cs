@@ -2,6 +2,9 @@
 {
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Class to define the properties defined in the result object for MarketData API method.
+    /// </summary>
     public class MarketDataDefinition
     {
         [JsonProperty("market_cap_rank")]

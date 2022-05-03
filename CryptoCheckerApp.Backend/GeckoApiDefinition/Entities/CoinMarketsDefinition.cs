@@ -4,6 +4,9 @@
 
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Class to define the properties defined in the result object for CoinMarkets API method.
+    /// </summary>
     public class CoinMarketsDefinition : MarketDataDefinition
     {
         [JsonProperty("id")]
