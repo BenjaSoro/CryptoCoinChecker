@@ -26,6 +26,9 @@ On the Android and iOS project the nuget *Xamarin.Forms.Visual.Material* needs t
 In addition for Android the following code `global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);` needs to be added in *MainActivity.cs*
  and for iOS the following code `global::Xamarin.Forms.FormsMaterial.Init();` to *AppDelegate.cs*.
 
+#### Application demo
+![xamarinProjectDemo](demo.gif)
+
 ---
 ## Backend side
 The backend side will be responsible to inform the client about the supported currencies and keep updating the price value according to real market prices.
